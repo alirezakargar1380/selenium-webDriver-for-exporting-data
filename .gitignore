@@ -1,2 +1,5 @@
 
 *.txt
+.idea/workspace.xml
+.idea/
+node_modules
