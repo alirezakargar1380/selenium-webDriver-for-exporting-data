@@ -9,8 +9,7 @@ const file = require("./routers/file");
 
 const app = express();
 app.use(express.static(`${__dirname}/public`));
+app.use(express.json());
 app.use(cors(), genra, selenium, handleling, file);
 
-app.listen(3001, () => {
-    console.log("you can see your code here: http://localhost:3001/result")
-})
+module.exports = app
