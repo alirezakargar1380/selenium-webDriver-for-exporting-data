@@ -7,6 +7,7 @@ module.exports = class SeleniumService {
     this.driver = ""
     this.url = ""
     this.result = {}
+    this.extend = ""
   }
 
   async open_browser() {
@@ -70,10 +71,78 @@ module.exports = class SeleniumService {
     await this.driver
         .findElement(By.name('btntnntn'))
         .click()
+    //
+    // await this.driver
+    //     .wait(this.driver.executeScript(() => {
+    //         return document.readyState
+    //     })).then(() => {
+    //         console.log('code loaded...')
+    //     }).catch((e) => {
+    //         console.log(e)
+    //     })
     } catch (e) {
       this.quit()
       throw Exception.setError(e)
     }
+  }
+
+  async check_for_extend_value()
+  {
+    try {
+      await this.driver.executeScript(() => {
+        return document.querySelectorAll('.v-window-wrap')[0].setAttribute('id', 'errorrrplace');
+      }).then(() => {
+        console.log('code was not find')
+        this.result.status = false
+      }, () => {
+        console.log('code was find')
+        this.result.status = true
+      })
+      // console.log('-> resutl')
+      // console.log(this.result)
+      return this.result
+    } catch (e) {
+      this.quit()
+      throw Exception.setError(e)
+    }
+  }
+
+  async error_box_execute_script() {
+    try {
+      await this.driver
+          .executeScript(() => {
+            return document.querySelectorAll('div.v-button.v-widget')[3].setAttribute('id', 'okkkk');
+          })
+    } catch (e) {
+      this.quit()
+      throw Exception.setError(e)
+    }
+  }
+
+  async click_for_close_error_box() {
+    try {
+      await this.driver.findElement(By.id('okkkk')).click()
+    } catch (e) {
+      this.quit()
+      throw Exception.setError(e)
+    }
+  }
+
+  async get_extend_code() {
+    try {
+      return await this.driver.executeScript(() => {
+        return document.querySelectorAll('.v-button-info-text-content > span > span')[0].innerText
+      }).then(function (innerHTML) {
+        return String(innerHTML).replace(/\u200B/g, '')
+      })
+    } catch (e) {
+      this.quit()
+      throw Exception.setError(e)
+    }
+  }
+
+  async emty_input_value() {
+    await this.driver.executeScript(`document.querySelectorAll('.v-textfield-search-input')[0].value = "";`);
   }
 
 }
