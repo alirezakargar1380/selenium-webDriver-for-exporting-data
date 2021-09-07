@@ -1,5 +1,5 @@
-
 *.txt
-.idea/workspace.xml
+.idea
 .idea/
-node_modules
+server/node_modules
+selenium/node_modules
