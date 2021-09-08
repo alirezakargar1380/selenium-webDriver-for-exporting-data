@@ -7,7 +7,7 @@ let run_counter = 0
 async function sel(params) {
   try {
     run_counter++
-    const { offset, limit } = params
+    const { biggerThan } = params
     const open_selenium = new selenium()
     await open_selenium.open_browser()
     open_selenium.url = process.env.WEB_PAGE_URL
@@ -18,7 +18,8 @@ async function sel(params) {
       await delay(5000)
       await open_selenium.add_execute_script()
       console.log('-->')
-      const get_unchecked_data = await order_code_Service.get_all_unchecked(parseInt(offset), parseInt(limit))
+      const get_unchecked_data = await order_code_Service.get_all_unchecked(biggerThan)
+      console.log(get_unchecked_data)
       function loop(count, callback, done) {
         var counter = 0;
         var next = () => {
@@ -38,6 +39,7 @@ async function sel(params) {
               if (extend_status.status)
               {
                 console.log("200")
+                console.log("func =>>> num: "+counter+" "+get_unchecked_data[counter].id)
                 console.log("func =>>> num: "+counter+" "+get_unchecked_data[counter].order_code)
                 // export extend code
                 const extend_code = await open_selenium.get_extend_code()
@@ -65,6 +67,7 @@ async function sel(params) {
                 }
                 await order_code_Service.update(json)
                 await open_selenium.click_for_close_error_box()
+                console.log("func =>>> num: "+counter+" "+get_unchecked_data[counter].id)
                 console.log("func =>>> num: "+counter+" "+get_unchecked_data[counter].order_code)
                 // emty_input
                 await open_selenium.emty_input_value()
@@ -78,6 +81,7 @@ async function sel(params) {
             }
           } else {
             console.log("finish")
+            open_selenium.quit()
           }
         }
         iteration();
