@@ -1,33 +1,42 @@
 const { permute } = require("js-permuter");
 const delay = require('delay');
+const order_code = require("./order_code");
 
 exports.number_generator = async (body) => {
   var input = [ 'one', 'two', 'three', 'four', "five",
-    "six", "sever", "eight", "nine", "ten", "eleven" ]
+    "six", "seven", "eight", "nine", "ten", "eleven" ]
 
   const options = {
     [input[0]]: body.one,
-    [input[1]]: ['1', '2', '3', '4'],
-    [input[2]]: ['e', 'f', 'g', 'h'],
-    [input[3]]: ['E', 'F', 'R', 'O'],
-    // five: ['5', '6', '7', '8'],
-    // six: ['9', 'I', 'J', 'K'],
-    // seven: ['9', 'I', 'J', 'K'],
-    // eight: ['9', 'I', 'J', 'K'],
-    // nine: ['9', 'I', 'J', 'K'],
-    // ten: ['9', 'I', 'J', 'K'],
+    [input[1]]: body.two,
+    [input[2]]: body.three,
+    [input[3]]: body.four,
+    [input[4]]: body.five,
+    [input[5]]: body.six,
+    [input[6]]: body.seven,
+    [input[7]]: body.eight,
+    [input[8]]: body.nine,
+    [input[9]]: body.ten,
+    [input[10]]: body.eleven,
   }
-  return console.log(options)
-
+  console.log(options)
   const allCombinations = permute(options);
-  console.log(allCombinations)
-  console.log('done')
-
+  console.log("----------------")
   for (let i = 0; i < allCombinations.length; i++) {
     var number
-    number = allCombinations[i][input[0]] + allCombinations[i][input[1]] + allCombinations[i][input[2]] + allCombinations[i][input[3]]
+    number = allCombinations[i][input[0]] + allCombinations[i][input[1]]
+        + allCombinations[i][input[2]] + allCombinations[i][input[3]] + allCombinations[i][input[4]]
+        + allCombinations[i][input[5]] + allCombinations[i][input[6]] + allCombinations[i][input[7]]
+        + allCombinations[i][input[8]] + allCombinations[i][input[9]] + allCombinations[i][input[10]]
+
+    var json = {
+      order_code: number,
+      checked_status: "false",
+      extend: null,
+      available: "false"
+    }
+    await order_code.create(json)
     console.log('---> ' + number)
-    console.log('******************-----------------***************************')
     await delay(1000)
   }
 
