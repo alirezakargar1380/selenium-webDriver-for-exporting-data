@@ -2,17 +2,19 @@ const order_code_Service = require('../service/order_code');
 const response = require("../utils/response.utitlity")
 const selenium = require("../service/selenium.service");
 const delay = require("delay");
+let run_counter = 0
 
 async function sel(params) {
   try {
+    run_counter++
     const { offset, limit } = params
     const open_selenium = new selenium()
     await open_selenium.open_browser()
     open_selenium.url = process.env.WEB_PAGE_URL
     const open_web_page_result = await open_selenium.open_webpage()
-    console.log(open_web_page_result)
     if (open_web_page_result.status)
     {
+      console.log('page was opened....')
       await delay(5000)
       await open_selenium.add_execute_script()
       console.log('-->')
@@ -70,7 +72,9 @@ async function sel(params) {
               }
             } catch (e) {
               console.log('controller e 1');
-              sel()
+              if (counter >= 10)
+                return console.log('tired to run')
+              sel(params)
             }
           } else {
             console.log("finish")
@@ -86,6 +90,8 @@ async function sel(params) {
     }
   } catch (e) {
     // loop browser
+    if (run_counter >= 10)
+      return console.log('tired to run')
     sel(params)
     console.log('controller e');
   }
