@@ -6,4 +6,10 @@ Router
     .route('/number_generator')
     .post(controller.generator)
 
+Router
+    .route('/result')
+    .get((req, res) => {
+      res.send("hey")
+    })
+
 module.exports = Router;

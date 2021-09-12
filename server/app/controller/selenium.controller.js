@@ -19,7 +19,7 @@ async function sel(params) {
       await open_selenium.add_execute_script()
       console.log('-->')
       const get_unchecked_data = await order_code_Service.get_all_unchecked(biggerThan)
-      console.log(get_unchecked_data)
+      // console.log(get_unchecked_data)
       function loop(count, callback, done) {
         var counter = 0;
         var next = () => {
@@ -97,7 +97,18 @@ async function sel(params) {
     if (run_counter >= 10)
       return console.log('tired to run')
     sel(params)
+    open_selenium.quit()
     console.log('controller e');
+  }
+}
+
+exports.stop = async (req, res) => {
+  try {
+    process.exit(1)
+    response.success(res, "ddd")
+  } catch (e) {
+    console.log('controller');
+    response.exception(res, e.message)
   }
 }
 

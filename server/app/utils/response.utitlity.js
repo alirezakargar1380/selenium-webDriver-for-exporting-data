@@ -29,7 +29,7 @@ return {status:2,message:message,
 
 //Function for run Promise
 exception = function (res,message) {
-    res.send({status:0,message:message,
+    res.status(400).send({status:0,message:message,
         data:[]});
 }
 

@@ -54,7 +54,6 @@ exports.TRUNCATE = async () => {
 }
 
 exports.get_all_unchecked = async (biggerThan) => {
-
   try {
     return await order_code.findAll({
       where: {

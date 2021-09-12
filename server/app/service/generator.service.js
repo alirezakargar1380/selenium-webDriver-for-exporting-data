@@ -19,7 +19,11 @@ exports.number_generator = async (body) => {
     [input[9]]: body.ten,
     [input[10]]: body.eleven,
   }
-  console.log(options)
+
+  // for (let i = 0; i < options.length; i++) {
+  //   console.log(options[i])
+  // }
+
   const allCombinations = permute(options);
   console.log("----------------")
   for (let i = 0; i < allCombinations.length; i++) {
