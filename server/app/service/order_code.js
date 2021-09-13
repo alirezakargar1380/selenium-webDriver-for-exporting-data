@@ -67,7 +67,19 @@ exports.get_all_unchecked = async (biggerThan) => {
     log.error(error);
     Exception.setError(error, false);
   }
+}
 
+exports.get_all_available_extend = async () => {
+  try {
+    return await order_code.findAll({
+      where: {
+        available: "true",
+      },
+    })
+  } catch (error) {
+    log.error(error);
+    Exception.setError(error, false);
+  }
 }
 
 // try {
