@@ -61,6 +61,15 @@ export default class App extends React.Component {
         })
   }
 
+  async delete_all() {
+    API.delete_all_records().then(() => {
+      toast("تمام دیتابیس حذف شد",{
+        type: "info",
+        theme: "dark"
+      })
+    })
+  }
+
   render() {
     const {data} = this.state
     return (
@@ -97,6 +106,17 @@ export default class App extends React.Component {
                     this.number_generator()
                   }}
               >RUN</button>
+            </div>
+            <div className="col-md-4 mb-3 d-flex">
+              <div className="text-left">
+                DELETE ALL DB:
+              </div>
+              <button
+                  className="ml-4 border-0 py-1 px-3 cursor del-btn"
+                  onClick={() => {
+                    this.delete_all()
+                  }}
+              >DELETE</button>
             </div>
           </div>
           <div className="w-50 mr-auto text-left pb-3">
