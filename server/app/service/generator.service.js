@@ -41,7 +41,7 @@ exports.number_generator = async (body) => {
     }
     await order_code.create(json)
     console.log('---> ' + number)
-    await delay(1000)
+    // await delay(1000)
   }
 
 }
