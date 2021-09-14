@@ -13,6 +13,10 @@ module.exports.robot = (biggerThan) => {
   return axios.post(BASE_URL+`/selenium_bot/run/${biggerThan}`)
 }
 
+module.exports.create_file = () => {
+  return axios.post(BASE_URL+`/file/create`)
+}
+
 module.exports.delete_all_records = () => {
   return axios.delete(BASE_URL+`/order_code/delete_all`)
 }

@@ -3,3 +3,4 @@
 .idea/
 server/node_modules
 selenium/node_modules
+server/*.zip

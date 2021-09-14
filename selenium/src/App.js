@@ -70,6 +70,15 @@ export default class App extends React.Component {
     })
   }
 
+  async create_file() {
+    API.create_file().then(() => {
+      toast("فایل با موفقیت ساخته شد",{
+        type: "info",
+        theme: "dark"
+      })
+    })
+  }
+
   render() {
     const {data} = this.state
     return (
@@ -117,6 +126,17 @@ export default class App extends React.Component {
                     this.delete_all()
                   }}
               >DELETE</button>
+            </div>
+            <div className="col-md-4 mb-3 d-flex">
+              <div className="text-left">
+                CREATE FILE:
+              </div>
+              <button
+                  className="ml-4 border-0 py-1 px-3 cursor"
+                  onClick={() => {
+                    this.create_file()
+                  }}
+              >CREATE FILE</button>
             </div>
           </div>
           <div className="w-50 mr-auto text-left pb-3">
