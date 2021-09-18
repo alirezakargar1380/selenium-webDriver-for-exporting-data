@@ -92,10 +92,10 @@ module.exports = class SeleniumService {
       await this.driver.executeScript(() => {
         return document.querySelectorAll('.v-window-wrap')[0].setAttribute('id', 'errorrrplace');
       }).then(() => {
-        console.log('code was not find')
+        // console.log('code was not find')
         this.result.status = false
       }, () => {
-        console.log('code was find')
+        // console.log('code was find')
         this.result.status = true
       })
       // console.log('-> resutl')
