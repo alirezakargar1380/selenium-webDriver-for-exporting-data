@@ -86,6 +86,19 @@ module.exports = class SeleniumService {
     }
   }
 
+  async none_loading()
+  {
+    try {
+      await this.driver.executeScript(() => {
+        return document.querySelectorAll('.v-loading-indicator')[0].style.display = "none"
+      }).then((res) => {
+        // console.log(res.display)
+      })
+    } catch (e) {
+
+    }
+  }
+
   async check_for_extend_value()
   {
     try {

@@ -31,10 +31,14 @@ async function sel(params) {
           if (counter < count)
           {
             try {
-              log.info(get_unchecked_data[counter].order_code)
+              log.info(get_unchecked_data[counter].id+"   "+get_unchecked_data[counter].order_code)
               // add order code to input
               await open_selenium.send_order_code_for_search(get_unchecked_data[counter].order_code)
+              await open_selenium.none_loading()
               await open_selenium.click_on_search_btn()
+
+
+              
               // waiting for get code
               await delay(parseInt(process.env.WAIT_TIME_FOR_GET_CODE))
               const extend_status = await open_selenium.check_for_extend_value()
@@ -76,6 +80,7 @@ async function sel(params) {
               if (run_counter >= parseInt(process.env.ERROR_TIMES))
                 return console.log('tired to run')
               sel(params)
+              open_selenium.quit()
               log.console('controller e 1');
               log.error(e.message)
             }
