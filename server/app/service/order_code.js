@@ -62,6 +62,7 @@ exports.get_all_unchecked = async (biggerThan) => {
           [Op.gte]: parseInt(biggerThan)
         }
       },
+      limit: 2000
     })
   } catch (error) {
     log.error(error);
