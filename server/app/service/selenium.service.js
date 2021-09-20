@@ -99,6 +99,18 @@ module.exports = class SeleniumService {
     }
   }
 
+  async checking_loading() {
+    try {
+      await this.driver.executeScript(() => {
+        return document.querySelectorAll('.v-loading-indicator')[0].style.display
+      }).then( async (res) => {
+        if (res !== "none") await this.checking_loading()
+      })
+    } catch (e) {
+
+    }
+  }
+
   async check_for_extend_value()
   {
     try {
@@ -124,7 +136,7 @@ module.exports = class SeleniumService {
     try {
       await this.driver
           .executeScript(() => {
-            return document.querySelectorAll('div.v-button.v-widget')[3].setAttribute('id', 'okkkk');
+            return document.querySelectorAll('div.v-button.v-widget')[3].setAttribute('id', 'error-box-ok-btn');
           })
     } catch (e) {
       this.quit()
@@ -134,7 +146,7 @@ module.exports = class SeleniumService {
 
   async click_for_close_error_box() {
     try {
-      await this.driver.findElement(By.id('okkkk')).click()
+      await this.driver.findElement(By.id('error-box-ok-btn')).click()
     } catch (e) {
       this.quit()
       throw Exception.setError(e)
