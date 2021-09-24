@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 // const mysql = require("mysql2");
 const Sequelize = require('sequelize')
-
+// should add remote db connection
 dotenv.config({
   path: "./app/config/config.env"
 })
