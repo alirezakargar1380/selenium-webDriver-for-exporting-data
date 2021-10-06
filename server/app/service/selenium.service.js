@@ -1,6 +1,8 @@
 const {Builder, By, Key, util} = require("selenium-webdriver");
 const Exception = require("../utils/error.utility");
+const log = require("../utils/log.utility");
 
+// v-Notification system v-Notification-system v-position-top v-position-center
 module.exports = class SeleniumService {
   constructor() {
     this.selenium = ""
@@ -46,7 +48,7 @@ module.exports = class SeleniumService {
       await this.driver
           .executeScript("document.querySelectorAll('.v-button-search-button')[0].setAttribute('name','btntnntn');");
     } catch (e) {
-      // this.quit()
+      this.quit()
       throw Exception.setError(e)
     }
   }
@@ -108,6 +110,23 @@ module.exports = class SeleniumService {
       })
     } catch (e) {
       throw Exception.setError(e)
+    }
+  }
+
+  async check_session_expiring() {
+    try {
+      return await this.driver.executeScript(() => {
+        return document.querySelectorAll('.v-Notification-system')[0]
+      }).then( (res) => {
+        if (res !== null)
+        {
+          log.error("------------------------------------------------------------------------- session was expire")
+          return false
+        }
+
+      })
+    } catch (e) {
+
     }
   }
 

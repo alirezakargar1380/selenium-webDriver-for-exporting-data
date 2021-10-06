@@ -35,6 +35,12 @@ async function sel(params) {
       };
       var iteration = async function () {
         if (counter < count) {
+          // if (counter>50)
+          // {
+          //   log.error("close>"+counter)
+          //   open_selenium.quit()
+          //   return sel(params)
+          // }
           try {
             log.info(get_unchecked_data[counter].id + "   " + get_unchecked_data[counter].order_code)
             // add order code to input
@@ -49,22 +55,29 @@ async function sel(params) {
             await delay(parseInt(process.env.WAIT_TIME_FOR_GET_CODE))
             await open_selenium.checking_loading()
 
+            const expire_res = await open_selenium.check_session_expiring()
+            if (expire_res === false)
+            {
+              open_selenium.quit()
+              return sel(params)
+            }
 
             const extend_status = await open_selenium.check_for_extend_value()
             if (extend_status.status) {
-              log.success("200")
               // export extend code
               const extend_code = await open_selenium.get_extend_code()
-              await delay(4000)
-              const count = await order_code_Service.count(extend_code)
-              if (parseInt(count.count) !== 0)
-              {
-                if (run_counter >= parseInt(process.env.ERROR_TIMES))
-                  return log.error('-------------------------->    tired to run')
-                log.warning("this order code is available --> "+extend_code)
-                open_selenium.quit()
-                return sel(params)
-              }
+              log.info(extend_code)
+              log.success("200")
+              // await delay(4000)
+              // const count = await order_code_Service.count(extend_code)
+              // if (parseInt(count.count) !== 0)
+              // {
+              //   if (run_counter >= parseInt(process.env.ERROR_TIMES))
+              //     return log.error('-------------------------->    tired to run')
+              //   log.warning("this order code is available --> "+extend_code)
+              //   open_selenium.quit()
+              //   return sel(params)
+              // }
               var json = {
                 id: get_unchecked_data[counter].id,
                 extend: extend_code,
@@ -96,6 +109,7 @@ async function sel(params) {
               await open_selenium.emty_input_value()
               next()
             }
+            // console.log(counter)
             log.info('<----------------------------------------->')
           } catch (e) {
             if (run_counter >= parseInt(process.env.ERROR_TIMES))
