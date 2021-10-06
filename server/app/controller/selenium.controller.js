@@ -10,6 +10,7 @@ async function sel(params) {
   try {
     run_counter++
     const {biggerThan} = params
+
     const open_selenium = new selenium()
     await open_selenium.open_browser()
     open_selenium.url = process.env.WEB_PAGE_URL
@@ -17,7 +18,7 @@ async function sel(params) {
 
     await delay(10000)
     if (!open_web_page_result.status) {
-      log.warning('page was not opened....')
+      log.error('page was not opened....')
       open_selenium.quit()
       return sel(params);
     }
@@ -54,6 +55,16 @@ async function sel(params) {
               log.success("200")
               // export extend code
               const extend_code = await open_selenium.get_extend_code()
+              await delay(4000)
+              const count = await order_code_Service.count(extend_code)
+              if (parseInt(count.count) !== 0)
+              {
+                if (run_counter >= parseInt(process.env.ERROR_TIMES))
+                  return log.error('-------------------------->    tired to run')
+                log.warning("this order code is available --> "+extend_code)
+                open_selenium.quit()
+                return sel(params)
+              }
               var json = {
                 id: get_unchecked_data[counter].id,
                 extend: extend_code,
@@ -61,10 +72,10 @@ async function sel(params) {
                 available: "true"
               }
               await order_code_Service.update(json)
-              // emty_input
+              // ----------------------------------> emty_input
               await open_selenium.none_loading()
               await open_selenium.emty_input_value()
-              // countinu app
+              // ----------------------------------> cuntinue app
               next()
 
             } else {
@@ -78,6 +89,7 @@ async function sel(params) {
                 available: "false"
               }
               await order_code_Service.update(json)
+
               await open_selenium.none_loading()
               await open_selenium.click_for_close_error_box()
               // emty_input
@@ -87,10 +99,10 @@ async function sel(params) {
             log.info('<----------------------------------------->')
           } catch (e) {
             if (run_counter >= parseInt(process.env.ERROR_TIMES))
-              return log.error('-------------------------->    tired to run')
-            open_selenium.quit()
+              return log.error('--------------------------> 1   tired to run')
             log.console('controller e 1');
             log.error(e.message)
+            open_selenium.quit()
             sel(params)
           }
         } else {
@@ -109,7 +121,7 @@ async function sel(params) {
     // loop browser
     if (run_counter >= parseInt(process.env.ERROR_TIMES))
       return log.error('-------------------------->    tired to run')
-    open_selenium.quit()
+    // open_selenium.quit()
     log.console('controller e');
     log.error(e.message)
     sel(params)
