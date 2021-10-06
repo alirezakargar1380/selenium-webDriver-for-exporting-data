@@ -32,10 +32,10 @@ module.exports = class SeleniumService {
       if (this.result.status) return this.result
       // return this.result
     } catch (e) {
-      console.log('quit from selenium...')
-      this.result.status = false
+      // console.log('quit from selenium...')
+      // this.result.status = false
       await this.driver.quit()
-      // throw Exception.setError(e)
+      throw Exception.setError(e)
     }
   }
 
@@ -46,7 +46,7 @@ module.exports = class SeleniumService {
       await this.driver
           .executeScript("document.querySelectorAll('.v-button-search-button')[0].setAttribute('name','btntnntn');");
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -60,7 +60,7 @@ module.exports = class SeleniumService {
             this.result.status = true
           })
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -81,7 +81,7 @@ module.exports = class SeleniumService {
     //         console.log(e)
     //     })
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -95,7 +95,7 @@ module.exports = class SeleniumService {
         // console.log(res.display)
       })
     } catch (e) {
-
+      throw Exception.setError(e)
     }
   }
 
@@ -107,7 +107,7 @@ module.exports = class SeleniumService {
         if (res !== "none") await this.checking_loading()
       })
     } catch (e) {
-
+      throw Exception.setError(e)
     }
   }
 
@@ -127,7 +127,7 @@ module.exports = class SeleniumService {
       // console.log(this.result)
       return this.result
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -139,7 +139,7 @@ module.exports = class SeleniumService {
             return document.querySelectorAll('div.v-button.v-widget')[3].setAttribute('id', 'error-box-ok-btn');
           })
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -148,7 +148,7 @@ module.exports = class SeleniumService {
     try {
       await this.driver.findElement(By.id('error-box-ok-btn')).click()
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
@@ -161,7 +161,7 @@ module.exports = class SeleniumService {
         return String(innerHTML).replace(/\u200B/g, '')
       })
     } catch (e) {
-      this.quit()
+      // this.quit()
       throw Exception.setError(e)
     }
   }
