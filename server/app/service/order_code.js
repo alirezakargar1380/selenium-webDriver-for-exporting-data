@@ -6,6 +6,17 @@ const log = require('../utils/log.utility')
 const db = require("../config/db");
 const { Op } = require("sequelize");
 
+exports.count = async (extend) => {
+  try {
+    return await order_code.findAndCountAll({
+      where: { extend: extend }
+    })
+  } catch (error) {
+    log.error(error);
+    Exception.setError(error, false);
+  }
+}
+
 exports.get = async (offset, limit) => {
 
   try {
