@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/mehdi_azizi" component={App} />
+        <Redirect from="/" to="/mehdi_azizi" />
+        <Redirect to="/mehdi_azizi" />
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
