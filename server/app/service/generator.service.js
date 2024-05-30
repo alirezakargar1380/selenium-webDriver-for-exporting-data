@@ -3,8 +3,10 @@ const delay = require('delay');
 const order_code = require("./order_code");
 
 exports.number_generator = async (body) => {
-  var input = [ 'one', 'two', 'three', 'four', "five",
-    "six", "seven", "eight", "nine", "ten", "eleven" ]
+  console.log(body)
+
+  var input = ['one', 'two', 'three', 'four', "five",
+    "six", "seven", "eight", "nine", "ten", "eleven"]
 
   const options = {
     [input[0]]: body.one,
@@ -29,9 +31,11 @@ exports.number_generator = async (body) => {
   for (let i = 0; i < allCombinations.length; i++) {
     var number
     number = allCombinations[i][input[0]] + allCombinations[i][input[1]]
-        + allCombinations[i][input[2]] + allCombinations[i][input[3]] + allCombinations[i][input[4]]
-        + allCombinations[i][input[5]] + allCombinations[i][input[6]] + allCombinations[i][input[7]]
-        + allCombinations[i][input[8]] + allCombinations[i][input[9]] + allCombinations[i][input[10]]
+      + allCombinations[i][input[2]] + allCombinations[i][input[3]] + allCombinations[i][input[4]]
+      + allCombinations[i][input[5]] + allCombinations[i][input[6]] + allCombinations[i][input[7]]
+      + allCombinations[i][input[8]] + allCombinations[i][input[9]] + allCombinations[i][input[10]]
+
+    console.log(number)
 
     var json = {
       order_code: number,

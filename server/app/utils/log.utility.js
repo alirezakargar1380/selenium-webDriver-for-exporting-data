@@ -1,5 +1,5 @@
-const log = require('fancy-log');
-const chalk = require('chalk');
+// const log = require('fancy-log');
+// const chalk = require('chalk');
 
 class Log {
   constructor() {
@@ -7,31 +7,31 @@ class Log {
   }
 
   console(message) {
-    this.console(message);
+    // this.console(message);
   }
 
   normal(message) {
-    log(message);
+    // log(message);
   }
 
   error(message) {
-    const { redBright, black } = chalk;
-    log(black.bgRed(' Error '), redBright(message));
+    // const { redBright, black } = chalk;
+    // log(black.bgRed(' Error '), redBright(message));
   }
 
   warning(message) {
-    const { yellow, black } = chalk;
-    log(black.bgYellow(' Warning '), yellow(message));
+    // const { yellow, black } = chalk;
+    // log(black.bgYellow(' Warning '), yellow(message));
   }
 
   info(message) {
-    const { blueBright, black } = chalk;
-    log(black.bgBlue(' Info '), blueBright(message));
+    // const { blueBright, black } = chalk;
+    // log(black.bgBlue(' Info '), blueBright(message));
   }
 
   success(message) {
-    const { greenBright, black } = chalk;
-    log(black.bgGreen(' Success '), greenBright(message));
+    // const { greenBright, black } = chalk;
+    // log(black.bgGreen(' Success '), greenBright(message));
   }
 }
 
