@@ -6,3 +6,4 @@ selenium/node_modules
 server/*.zip
 *.rar
 *.zip
+server/package-lock.json
