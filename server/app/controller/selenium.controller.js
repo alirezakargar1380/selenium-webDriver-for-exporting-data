@@ -9,7 +9,7 @@ let run_counter = 0
 async function sel(params) {
   try {
     run_counter++
-    const {biggerThan} = params
+    const { biggerThan } = params
 
     const open_selenium = new selenium()
     await open_selenium.open_browser()
@@ -42,7 +42,7 @@ async function sel(params) {
           //   return sel(params)
           // }
           try {
-            log.info(get_unchecked_data[counter].id + "   " + get_unchecked_data[counter].order_code)
+            console.log(get_unchecked_data[counter].id + "   " + get_unchecked_data[counter].order_code)
             // add order code to input
             await open_selenium.send_order_code_for_search(get_unchecked_data[counter].order_code)
             await open_selenium.click_on_search_btn()
@@ -56,8 +56,7 @@ async function sel(params) {
             await open_selenium.checking_loading()
 
             const expire_res = await open_selenium.check_session_expiring()
-            if (expire_res === false)
-            {
+            if (expire_res === false) {
               open_selenium.quit()
               return sel(params)
             }
