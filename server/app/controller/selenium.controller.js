@@ -65,7 +65,7 @@ async function sel(params) {
             if (extend_status.status) {
               // export extend code
               const extend_code = await open_selenium.get_extend_code()
-              log.info(extend_code)
+              console.log(extend_code)
               log.success("200")
               // await delay(4000)
               // const count = await order_code_Service.count(extend_code)
@@ -112,9 +112,9 @@ async function sel(params) {
             log.info('<----------------------------------------->')
           } catch (e) {
             if (run_counter >= parseInt(process.env.ERROR_TIMES))
-              return log.error('--------------------------> 1   tired to run')
-            log.console('controller e 1');
-            log.error(e.message)
+              return console.log('--------------------------> 1   tired to run')
+            console.log('controller e 1');
+            console.log(e.message)
             open_selenium.quit()
             sel(params)
           }
@@ -136,7 +136,7 @@ async function sel(params) {
       return log.error('-------------------------->    tired to run')
     // open_selenium.quit()
     log.console('controller e');
-    log.error(e.message)
+    console.log(e);
     sel(params)
   }
 }

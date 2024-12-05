@@ -4,7 +4,14 @@ const log = require("../utils/log.utility");
 
 const chrome = require('selenium-webdriver/chrome');
 const options = new chrome.Options();
+
+
 options.addArguments('--headless');
+options.addArguments('--no-sandbox');
+options.addArguments('--disable-dev-shm-usage');
+options.addArguments('--disable-gpu');
+options.setBinaryPath('/usr/bin/chromium-browser');
+
 
 // v-Notification system v-Notification-system v-position-top v-position-center
 module.exports = class SeleniumService {
@@ -68,23 +75,12 @@ module.exports = class SeleniumService {
   }
 
   async click_on_search_btn() {
-    try {
-      await this.driver
-        .findElement(By.name('btntnntn'))
-        .click()
-      //
-      // await this.driver
-      //     .wait(this.driver.executeScript(() => {
-      //         return document.readyState
-      //     })).then(() => {
-      //         console.log('code loaded...')
-      //     }).catch((e) => {
-      //         console.log(e)
-      //     })
-    } catch (e) {
-      // this.quit()
-      throw Exception.setError(e)
-    }
+   try {
+    const button = await this.driver.findElement(By.name('btntnntn'));
+    await this.driver.executeScript("arguments[0].scrollIntoView(true); arguments[0].click();", button);
+  } catch (e) {
+    throw Exception.setError(e)
+  }
   }
 
   async none_loading() {
